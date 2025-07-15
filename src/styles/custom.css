@@ -1,0 +1,146 @@
+/* custom.css */
+
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .no-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;     /* Firefox */
+  }
+  
+  body {
+    overflow-x: hidden;
+  }
+
+
+  @keyframes slide-down {
+    0% {
+      transform: translateY(-20px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0px);
+      opacity: 1;
+    }
+  }
+  .animate-slide-down {
+    animation: slide-down 0.9s ease forwards;
+  }
+  
+  @keyframes slideUpFade {
+    0% {
+      transform: translateY(40px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  .icon-carousel {
+    animation: slideUpFade 0.8s ease-out forwards;
+  }
+
+  @keyframes iconSlideUp {
+    0% {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+    10% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    40% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    50% {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+  }
+  
+  .icon-carousel-container {
+    position: relative;
+    height: 21px; /* adjust height as needed */
+    width: 24px;
+    overflow: hidden;
+  }
+  
+  .icon-carousel-item {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    animation: iconSlideUp 4s ease-in-out infinite;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(100%)
+  }
+  
+  /* Delay for second icon */
+  .icon-carousel-item:nth-child(2) {
+    animation-delay: 2s;
+  }
+
+  .icon-carousel-container:hover .icon-carousel-item {
+    animation-play-state: paused;
+  }
+
+/* Animations */
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+
+.animate-slide-up {
+  animation: slideUp 0.4s ease-out forwards;
+}
+
+.animate-slide-down {
+  animation: slideDown 0.4s ease-in forwards;
+}
+
+@keyframes bounceUp {
+  0% {
+    transform: translateY(40px);
+    opacity: 0;
+  }
+  60% {
+    transform: translateY(-6px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.animate-bounce-up-1 {
+  animation: bounceUp 0.6s ease-out 0.2s forwards;
+}
+
+.animate-bounce-up-2 {
+  animation: bounceUp 0.6s ease-out 0.4s forwards;
+}
