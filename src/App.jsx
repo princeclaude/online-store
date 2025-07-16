@@ -28,32 +28,29 @@ function App() {
   const isAdmin = user?.email === "admin@classicroyal.com";
 
   return (
-    <Routes>
-      {/* Default Route */}
-      <Route path="/" element={<Navigate to="/home" replace />} />
-
-      {/* Public Routes */}
-      <Route path="/home" element={<Home />} />
-      <Route path="/signup" element={<SignUp />} />
-      <Route path="/signin" element={<SignIn />} />
-      <Route path="/product/:id" element={<ProductDetailPage />} />
-      <Route path="/bag" element={<BagScreen />} />
-      <Route path="/settings" element={<SettingsPage />} />
-      <Route path="/upload" element={<UploadProduct />} />
-      <Route path="/section" element={<CategorySection />} />
-      <Route path="/header" element={<HeaderComponent />} />
-      <Route path="/signinmodal" element={<SignInModal />} />
-      <Route path="/search" element={<SearchModal />} />
-      <Route path="/flashsale" element={<FlashSalesBanner />} />
-      <Route path="/allproducts" element={<AdminAllProducts />} />
-      <Route path="/editproduct/:id" element={<EditProductPage />} />
-      <Route path="/footer" element={<FooterComponent />} />
-      <Toaster position="top-center" reverseOrder={ false} />
-
-      {/* Admin-only Route */}
-      {isAdmin && <Route path="/save" element={<SavePixabayImage />} />}
-    </Routes>
+    <>
+      <Toaster position="top-center" reverseOrder={false} />
+      <Routes>
+        <Route path="/" element={<Navigate to="/home" replace />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/signin" element={<SignIn />} />
+        <Route path="/product/:id" element={<ProductDetailPage />} />
+        <Route path="/bag" element={<BagScreen />} />
+        <Route path="/settings" element={<SettingsPage />} />
+        <Route path="/upload" element={<UploadProduct />} />
+        <Route path="/section" element={<CategorySection />} />
+        <Route path="/header" element={<HeaderComponent />} />
+        <Route path="/signinmodal" element={<SignInModal />} />
+        <Route path="/search" element={<SearchModal />} />
+        <Route path="/flashsale" element={<FlashSalesBanner />} />
+        <Route path="/allproducts" element={<AdminAllProducts />} />
+        <Route path="/editproduct/:id" element={<EditProductPage />} />
+        <Route path="/footer" element={<FooterComponent />} />
+        {isAdmin && <Route path="/save" element={<SavePixabayImage />} />}
+      </Routes>
+      
+    </>
   );
 }
-
 export default App;
