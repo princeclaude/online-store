@@ -49,14 +49,14 @@ const HeaderIcons = () => (
   <div className="flex space-x-3 ml-2">
     <div
       className="text-blue-700 cursor-pointer"
-      onClick={() => alert("Email clicked")}
+      onClick={() => alert("Please check our contactus page")}
       title="Send us a mail"
     >
       <FaEnvelope size={18} />
     </div>
     <div
       className="text-green-600 cursor-pointer"
-      onClick={() => alert("Phone clicked")}
+      onClick={() => alert("Please check our contactus page ")}
       title="Chat on WhatsApp"
     >
       <FaWhatsapp size={18} />
