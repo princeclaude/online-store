@@ -209,14 +209,26 @@ const UserOrdersModal = ({ onClose }) => {
                     </td>
                     <td className="p-2 border text-center">
                       {order.deliveryStatus?.toLowerCase() === "on the way" ? (
-                        <div className="flex flex-col items-center justify-center gap-1">
-                          <span className="text-xs font-semibold text-white bg-blue-600 px-2 py-1 rounded">
-                            On the way
-                          </span>
-                          <span className="text-[11px] text-blue-800 font-bold">
-                            {renderETA(order.eta)}
-                          </span>
-                        </div>
+                        (() => {
+                          const etaDate = order.eta?.toDate?.();
+                          const now = new Date();
+                          const isPast = etaDate && etaDate < now;
+
+                          return isPast ? (
+                            <span className="text-green-700 font-semibold text-xs">
+                              Your package is here!
+                            </span>
+                          ) : (
+                            <div className="flex flex-col items-center justify-center gap-1">
+                              <span className="text-xs font-semibold text-white bg-blue-600 px-2 py-1 rounded">
+                                On the way
+                              </span>
+                              <span className="text-[11px] text-blue-800 font-bold">
+                                {renderETA(order.eta)}
+                              </span>
+                            </div>
+                          );
+                        })()
                       ) : (
                         <span className={getStatusColor(order.deliveryStatus)}>
                           {order.deliveryStatus || "pending"}

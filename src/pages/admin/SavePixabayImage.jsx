@@ -225,10 +225,10 @@ const SavePixabayImageWithMetadata = () => {
             Pixabay Product Uploader
           </h2>
 
-          {/* 🔥 Flash Sale Timer UI */}
+          {/* Flash Sale Timer UI */}
           <div className="bg-yellow-100 border border-yellow-300 p-4 rounded mb-4">
             <h3 className="font-bold text-lg mb-2 text-yellow-800">
-              🔥 Set Flash Sales Timer
+               Set Flash Sales Timer
             </h3>
             <div className="flex flex-col md:flex-row items-center gap-3">
               <input
@@ -297,7 +297,7 @@ const SavePixabayImageWithMetadata = () => {
               Refresh
             </button>
             <button
-              onClick={() => navigate("/signin")}
+              onClick={() => navigate("/home")}
               className="bg-black text-white px-4 py-2 rounded"
             >
               Logout

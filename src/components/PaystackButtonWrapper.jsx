@@ -28,7 +28,7 @@ const PaystackButtonWrapper = ({ amount, email, items, onSuccess, onClose }) => 
 
   const handleSuccess = async () => {
     try {
-      const userRef = doc(db, "users", user.uid);
+      const userRef = doc(db, "users", user.email);
       const userSnap = await getDoc(userRef);
 
       let name = "Unknown";
