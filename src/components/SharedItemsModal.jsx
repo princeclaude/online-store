@@ -15,6 +15,7 @@ import { useAuth } from "../contexts/AuthContext";
 import { FaTimes, FaTrash, FaCreditCard } from "react-icons/fa";
 import { FiShoppingBag } from "react-icons/fi";
 import PurchaseModal from "./PurchaseModal";
+import toast from "react-hot-toast";
 
 const SharedItemsModal = ({ onClose, fetchBagItems }) => {
   const { user } = useAuth();
@@ -81,10 +82,10 @@ const SharedItemsModal = ({ onClose, fetchBagItems }) => {
         await fetchBagItems(); // Immediately update badge count
       }
 
-      alert("Item added to your bag.");
+      toast.success("Item added to your bag.");
     } catch (err) {
       console.error("Error adding to bag:", err);
-      alert("Failed to add to bag. Try again.");
+      toast.error("Failed to add to bag. Try again.");
     }
   };
 

@@ -13,6 +13,7 @@ import {
 import { useAuth } from "../contexts/AuthContext";
 import { PaystackButton } from "react-paystack";
 import { useBag } from "../contexts/BagContext";
+import toast from "react-hot-toast";
 
 const PaystackButtonWrapper = ({ amount, email, items, onSuccess, onClose }) => {
   const { user } = useAuth();
@@ -84,7 +85,7 @@ const PaystackButtonWrapper = ({ amount, email, items, onSuccess, onClose }) => 
       if (onSuccess) onSuccess();
     } catch (err) {
       console.error("⚠ Error completing order:", err);
-      alert("Order processing failed. Please contact support.");
+      toast.error("Order processing failed. Please contact support.");
     }
   };
   return (

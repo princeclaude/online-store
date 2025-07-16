@@ -119,7 +119,7 @@ const ProductDetailPage = () => {
       await fetchReviews(); // Soft refresh reviews
     } catch (err) {
       console.error("Error adding review:", err);
-      alert("Failed to submit review.");
+      toast.error("Failed to submit review.");
     } finally {
       setLoading(false);
     }

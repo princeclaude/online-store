@@ -10,6 +10,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
 import { useAuth } from "../contexts/AuthContext";
+import toast from "react-hot-toast";
 
 const ShareModal = ({ item, onClose }) => {
   const { user } = useAuth();
@@ -29,7 +30,7 @@ const ShareModal = ({ item, onClose }) => {
     setMessage("");
 
     if (!recipientEmail || !recipientEmail.includes("@")) {
-      alert("Please enter a valid email.");
+      toast.error("Please enter a valid email.");
       setLoading(false);
       return;
     }

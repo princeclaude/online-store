@@ -4,6 +4,7 @@ import { getDocs, collection, query, where } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
 import { useAuth } from "../contexts/AuthContext";
 
+
 const PurchaseModal = ({ item, onClose }) => {
   const { user } = useAuth();
   const [otherUserInfo, setOtherUserInfo] = useState(null);

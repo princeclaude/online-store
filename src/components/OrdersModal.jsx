@@ -10,6 +10,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
 import { FaTimes, FaTrash } from "react-icons/fa";
+import toast from "react-hot-toast";
 
 const OrdersModal = ({ onClose }) => {
   const [orders, setOrders] = useState([]);
@@ -161,7 +162,7 @@ const OrdersModal = ({ onClose }) => {
       );
 
       setSelectedDeliveredOrder(null);
-      alert("Delivery status set to Delivered and code removed.");
+      toast.success("Delivery status set to Delivered and code removed.");
     } catch (err) {
       console.error("Error validating delivery code:", err);
       setCodeError("Something went wrong. Try again.");

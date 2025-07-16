@@ -4,7 +4,7 @@ import { doc, updateDoc, getDoc, deleteDoc } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
 import { useAuth } from "../contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
-
+import toast from "react-hot-toast";
 const SettingsPage = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
@@ -89,11 +89,11 @@ const SettingsPage = () => {
       await deleteDoc(doc(db, "users", user.uid));
       await deleteUser(user);
       await logout();
-      alert("Account deleted.");
+      toast.success("Account deleted.");
       navigate("/");
     } catch (err) {
       console.error("Delete failed:", err);
-      alert("Something went wrong. Please try again.");
+      toast.error("Something went wrong. Please try again.");
     }
   };
 

@@ -5,6 +5,7 @@ import {
 } from "firebase/auth";
 import { auth } from "../firebase/firebaseConfig";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const SignIn = () => {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -37,7 +38,7 @@ const SignIn = () => {
   const handlePasswordReset = async () => {
     try {
       await sendPasswordResetEmail(auth, resetEmail);
-      alert("Password reset email sent. Please check your inbox.");
+      toast.success("Password reset email sent. Please check your inbox.");
       setForgotModal(false);
       setResetEmail("");
     } catch (error) {

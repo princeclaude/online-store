@@ -5,6 +5,7 @@ import {
 } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { auth, db } from "../firebase/firebaseConfig";
+import toast from "react-hot-toast";
 
 const SignupPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -27,7 +28,7 @@ const SignupPage = () => {
     const { name, email, password, phone, address } = form;
 
     if (!name || !email || !password || !phone || !address) {
-      alert("All fields must be filled!")
+      toast.success("All fields must be filled!")
       return;
     }
       
