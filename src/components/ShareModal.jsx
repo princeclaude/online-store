@@ -17,7 +17,6 @@ const ShareModal = ({ item, onClose }) => {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
-  // ✅ Normalize and generate a safe itemId
   const itemId = (
     item?.id ||
     `${item?.name || ""}_${item?.price || ""}`
@@ -36,7 +35,6 @@ const ShareModal = ({ item, onClose }) => {
     }
 
     try {
-      // 1. Check recipient exists
       const recipientQuery = query(
         collection(db, "users"),
         where("email", "==", recipientEmail.trim().toLowerCase())
@@ -49,25 +47,6 @@ const ShareModal = ({ item, onClose }) => {
         return;
       }
 
-      // 2. Check for duplicate share
-    //   const duplicateQuery = query(
-    //     collection(db, "shared"),
-    //     where("senderEmail", "==", user.email),
-    //     where("recipientEmail", "==", recipientEmail.trim().toLowerCase()),
-    //     where("itemId", "==", itemId)
-    //   );
-
-    //   const duplicateSnap = await getDocs(duplicateQuery);
-    //   console.log("Checking for duplicates with itemId:", itemId);
-    //   console.log("Duplicate found?", !duplicateSnap.empty);
-
-    //   if (!duplicateSnap.empty) {
-    //     setMessage("⚠ You've already shared this item with this user.");
-    //     setLoading(false);
-    //     return;
-    //   }
-
-      // 3. Proceed to share
       await addDoc(collection(db, "shared"), {
         itemId,
         imageUrl: item.imageUrl,
@@ -91,16 +70,16 @@ const ShareModal = ({ item, onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-70 z-50 flex justify-center items-center p-4">
-      <div className="bg-white rounded-lg shadow-md max-w-md w-full p-6 relative">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70 p-3 sm:p-4">
+      <div className="bg-white rounded-lg shadow-md w-full max-w-md sm:max-w-sm p-4 sm:p-6 relative">
         <button
           onClick={onClose}
-          className="absolute top-3 right-4 text-gray-600 hover:text-red-600"
+          className="absolute top-3 right-4 text-gray-600 hover:text-red-600 text-lg sm:text-xl"
         >
           <FaTimes />
         </button>
 
-        <h2 className="text-lg font-bold mb-4">Share Item</h2>
+        <h2 className="text-lg sm:text-xl font-bold mb-3">Share Item</h2>
         <p className="text-sm text-gray-600 mb-2">Enter recipient's email:</p>
 
         <input
@@ -108,13 +87,13 @@ const ShareModal = ({ item, onClose }) => {
           value={recipientEmail}
           onChange={(e) => setRecipientEmail(e.target.value)}
           placeholder="recipient@example.com"
-          className="w-full border border-gray-300 px-4 py-2 rounded mb-4"
+          className="w-full border border-gray-300 px-3 py-2 rounded mb-3 text-sm sm:text-base"
         />
 
         <button
           onClick={handleShare}
           disabled={loading}
-          className="w-full bg-black text-white py-2 rounded hover:bg-gray-900"
+          className="w-full bg-black text-white py-2 rounded hover:bg-gray-900 text-sm sm:text-base"
         >
           {loading ? "Sharing..." : "Share"}
         </button>

@@ -162,16 +162,7 @@ const HeaderComponent = ({ cartCount = 0, setShowWishlist }) => {
         <HeaderIcons />
       </div>
 
-      {/* Center Logo
-      <div className="mx-auto md:absolute md:left-1/2 md:transform md:-translate-x-1/2 md:top-3">
-        <img
-          src={logo}
-          alt="logo"
-          className="h-14 md:h-20 w-auto object-contain"
-        />
-      </div> */}
-
-      {/* Right Group */}
+     
       <div className="flex items-center space-x-4 mt-4 md:mt-0">
         {user && userProfile?.name && (
           <p className="text-xs text-green-400 font-semibold">

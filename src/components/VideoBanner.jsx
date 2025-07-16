@@ -23,7 +23,7 @@ const VideoBanner = () => {
       {/* Video */}
       <video
         ref={videoRef}
-        src="https://res.cloudinary.com/dksgxa1b3/video/upload/v1751975245/140828-776043783_small_fgz8s8.mp4"
+        src="/manwalks.mp4"
         className="w-full h-full object-cover"
         autoPlay
         muted

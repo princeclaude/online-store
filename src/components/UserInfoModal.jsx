@@ -4,11 +4,10 @@ import { useAuth } from "../contexts/AuthContext";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
 
-
 const UserInfoModal = ({ onClose }) => {
   const { user, logout } = useAuth();
   const [userInfo, setUserInfo] = useState(null);
-  const [loading, setLoading] = useState(true); // 🔄 New loading state
+  const [loading, setLoading] = useState(true);
   const [visible, setVisible] = useState(false);
   const [message, setMessage] = useState("");
   const modalRef = useRef(null);
@@ -17,7 +16,7 @@ const UserInfoModal = ({ onClose }) => {
     const fetchUserInfo = async () => {
       if (!user) return;
       try {
-        const userRef = doc(db, "users", user.uid);
+        const userRef = doc(db, "users", user.uid); // 🔁 You may need to use user.email if your docs are keyed by email
         const snap = await getDoc(userRef);
         if (snap.exists()) {
           setUserInfo(snap.data());
@@ -25,7 +24,7 @@ const UserInfoModal = ({ onClose }) => {
       } catch (err) {
         console.error("Failed to fetch user info:", err);
       } finally {
-        setLoading(false); // ✅ Done loading
+        setLoading(false);
       }
     };
 
@@ -43,9 +42,7 @@ const UserInfoModal = ({ onClose }) => {
 
   const handleClose = () => {
     setVisible(false);
-    setTimeout(() => {
-      onClose();
-    }, 500);
+    setTimeout(() => onClose(), 500);
   };
 
   const handleBackdropClick = (e) => {
@@ -78,15 +75,12 @@ const UserInfoModal = ({ onClose }) => {
           visible ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        {/* Close Button */}
         <button
           onClick={handleClose}
           className="absolute top-4 right-4 text-gray-600 hover:text-red-500 text-xl"
         >
           <FaTimes />
         </button>
-
-       
 
         <h2 className="text-xl font-bold mb-4 text-gray-800 mt-10">
           User Profile
@@ -102,21 +96,26 @@ const UserInfoModal = ({ onClose }) => {
               <strong>Name:</strong> {userInfo?.name || "N/A"}
             </p>
             <p className="text-gray-700">
-              <strong>Email:</strong> {user.email || "N/A"}
+              <strong>Email:</strong> {user?.email || "N/A"}
             </p>
             <p className="text-gray-700">
-              <strong>Address:</strong> {userInfo.address || "N/A"}
+              <strong>Address:</strong> {userInfo?.address || "Not provided"}
             </p>
             <p className="text-gray-700">
-              <strong>Phone:</strong> {userInfo?.phone || "Not Provided"}
+              <strong>Phone:</strong> {userInfo?.phone || "Not provided"}
             </p>
             <p className="text-gray-700">
-              <strong>Wallet:</strong> {Number(userInfo.wallet).toLocaleString() || "Not Provided"}
+              <strong>Wallet:</strong>{" "}
+              {userInfo?.wallet != null
+                ? Number(userInfo.wallet).toLocaleString()
+                : "Not provided"}
             </p>
             <p className="text-gray-700">
-              <strong>Created:</strong> {userInfo.createdAt.toDate().toLocaleString()|| "Not Provided"}
+              <strong>Created:</strong>{" "}
+              {userInfo?.createdAt?.toDate
+                ? userInfo.createdAt.toDate().toLocaleString()
+                : "Not provided"}
             </p>
-           
 
             <button
               onClick={handleLogout}
