@@ -16,6 +16,7 @@ import { db } from "../firebase/firebaseConfig";
 import { useAuth } from "../contexts/AuthContext";
 import { useBag } from "../contexts/BagContext";
 import Spinner from "./Spinner";
+import toast from "react-hot-toast";
 
 const ProductDetailPage = () => {
   const { id } = useParams();
@@ -89,14 +90,14 @@ const ProductDetailPage = () => {
   };
 
   const handleAddToBag = async () => {
-    if (!user) return alert("Please sign in to add items to your bag.");
+    if (!user) return toast.success("Please sign in to add items to your bag.");
     await addDoc(collection(db, "bag"), {
       ...product,
       userId: user.uid,
       dateAdded: Timestamp.now(),
     });
     fetchBagItems();
-    alert("Item added to bag");
+    toast.success("Item added to bag")
     navigate("/home");
   };
 

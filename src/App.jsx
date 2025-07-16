@@ -18,6 +18,7 @@ import ProductDetailPage from "./components/ProductDetailPage";
 import FooterComponent from "./components/FooterComponent";
 import AdminAllProducts from "./components/AdminAllProducts";
 import EditProductPage from "./components/EditProductPage";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   const { user, loading } = useAuth();
@@ -47,6 +48,7 @@ function App() {
       <Route path="/allproducts" element={<AdminAllProducts />} />
       <Route path="/editproduct/:id" element={<EditProductPage />} />
       <Route path="/footer" element={<FooterComponent />} />
+      <Toaster position="top-center" reverseOrder={ false} />
 
       {/* Admin-only Route */}
       {isAdmin && <Route path="/save" element={<SavePixabayImage />} />}
