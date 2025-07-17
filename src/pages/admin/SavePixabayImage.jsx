@@ -41,6 +41,61 @@ const SavePixabayImageWithMetadata = () => {
 
   const navigate = useNavigate();
 
+  const uploadToUploadcare = async (blob) => {
+  const UPLOADCARE_PUBLIC_KEY = "86ef078d93587e6ae382"; 
+  const formData = new FormData();
+  formData.append("UPLOADCARE_STORE", "1");
+  formData.append("UPLOADCARE_PUB_KEY", UPLOADCARE_PUBLIC_KEY);
+  formData.append("file", blob);
+
+  const response = await fetch("https://upload.uploadcare.com/base/", {
+    method: "POST",
+    body: formData,
+  });
+
+  const data = await response.json();
+  if (data && data.file) {
+    return `https://ucarecdn.com/${data.file}/`;
+  } else {
+    throw new Error("Failed to upload to Uploadcare");
+}
+  };
+  
+
+  const handleSaveToFirestore = async (imageUrl) => {
+    const catName = form.category.trim().toUpperCase();
+
+    const catQuery = query(
+      collection(db, "categories"),
+      where("name", "==", catName)
+    );
+    const catSnap = await getDocs(catQuery);
+
+    if (catSnap.empty) {
+      await addDoc(collection(db, "categories"), {
+        name: catName,
+        createdAt: serverTimestamp(),
+      });
+    }
+
+    await addDoc(collection(db, "products"), {
+      name: form.name,
+      price: parseFloat(form.price),
+      originalPrice:
+        form.category.toUpperCase() === "FLASH SALES"
+          ? parseFloat(form.originalPrice)
+          : null,
+      status: form.status,
+      description: form.description,
+      category: catName,
+      fullImage: imageUrl,
+      imageUrl,
+      tags: selectedImage.tags,
+      source: "uploadcare",
+      createdAt: serverTimestamp(),
+    });
+  };
+
   const categories = [
     "Shoes",
     "Men's Clothing",
@@ -83,88 +138,65 @@ const SavePixabayImageWithMetadata = () => {
     setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
   };
 
-  const handleSave = async () => {
-    if (
-      !form.name ||
-      !form.price ||
-      !form.description ||
-      !selectedImage ||
-      !form.category
-    ) {
-      return alert("Please fill all fields and select an image and category.");
-    }
+   const handleSave = async () => {
+     if (
+       !form.name ||
+       !form.price ||
+       !form.description ||
+       !selectedImage ||
+       !form.category
+     ) {
+       return alert("Please fill all fields and select an image and category.");
+     }
 
-    if (form.category.toUpperCase() === "FLASH SALES" && !form.originalPrice) {
-      return alert("Please enter original price for Flash Sales item.");
-    }
+     if (form.category.toUpperCase() === "FLASH SALES" && !form.originalPrice) {
+       return alert("Please enter original price for Flash Sales item.");
+     }
 
-    setSaving(true);
+     setSaving(true);
 
-    try {
-      const catName = form.category.trim().toUpperCase();
+     try {
+       // Check if product already exists
+       const productQuery = query(
+         collection(db, "products"),
+         where("name", "==", form.name),
+         where("imageUrl", "==", selectedImage.largeImageURL)
+       );
+       const productSnap = await getDocs(productQuery);
 
-      const catQuery = query(
-        collection(db, "categories"),
-        where("name", "==", catName)
-      );
-      const catSnap = await getDocs(catQuery);
+       if (!productSnap.empty) {
+         alert("⚠ Product already exists with the same name and image.");
+         setSaving(false);
+         return;
+       }
 
-      if (catSnap.empty) {
-        await addDoc(collection(db, "categories"), {
-          name: catName,
-          createdAt: serverTimestamp(),
-        });
-      }
+       // Download image as blob
+       const response = await fetch(selectedImage.largeImageURL);
+       const blob = await response.blob();
 
-      
+       // Upload to Uploadcare
+       const uploadedUrl = await uploadToUploadcare(blob);
 
-      const productQuery = query(
-        collection(db, "products"),
-        where("name", "==", form.name),
-        where("imageUrl", "==", selectedImage.largeImageURL)
-      );
-      const productSnap = await getDocs(productQuery);
+       // Save to Firestore
+       await handleSaveToFirestore(uploadedUrl);
 
-      if (!productSnap.empty) {
-        alert("⚠ Product already exists with the same name and image.");
-        setSaving(false);
-        return;
-      }
+       setMessage("✅ Product saved successfully!");
+       setSelectedImage(null);
+       setForm({
+         name: "",
+         price: "",
+         originalPrice: "",
+         status: "",
+         description: "",
+         category: "",
+       });
+     } catch (err) {
+       console.error("Error saving:", err);
+       setMessage("❌ Error saving product.");
+     }
 
-      await addDoc(collection(db, "products"), {
-        name: form.name,
-        price: parseFloat(form.price),
-        originalPrice:
-          form.category.toUpperCase() === "FLASH SALES"
-            ? parseFloat(form.originalPrice)
-            : null,
-        status: form.status,
-        description: form.description,
-        category: catName,
-        fullImage: selectedImage.largeImageURL,
-        imageUrl: selectedImage.largeImageURL,
-        tags: selectedImage.tags,
-        source: "pixabay",
-        createdAt: serverTimestamp(),
-      });
-
-      setMessage("✅ Product saved successfully!");
-      setSelectedImage(null);
-      setForm({
-        name: "",
-        price: "",
-        originalPrice: "",
-        status: "",
-        description: "",
-        category: "",
-      });
-    } catch (err) {
-      console.error("Error saving:", err);
-      setMessage("❌ Error saving product.");
-    }
-
-    setSaving(false);
-  };
+     setSaving(false);
+   };
   const handleStopFlashSales = async () => {
     const confirm = window.confirm(
       "Are you sure you want to stop Flash Sales?"
@@ -172,10 +204,10 @@ const SavePixabayImageWithMetadata = () => {
     if (!confirm) return;
 
     try {
-      // 🔥 Delete flashSales/global document
+      
       await deleteDoc(doc(db, "flashSales", "global"));
 
-      // ❌ Delete all products with category "FLASH SALES"
+      
       const q = query(
         collection(db, "products"),
         where("category", "==", "FLASH SALES")
@@ -221,10 +253,7 @@ const SavePixabayImageWithMetadata = () => {
     <>
       <div className="sticky top-0 z-50 bg-white border-b shadow-sm py-4 mb-6">
         <div className="max-w-4xl mx-auto px-4">
-          <h2 className="text-2xl font-bold mb-4 text-center">
-            Pixabay Product Uploader
-          </h2>
-
+          
           {/* Flash Sale Timer UI */}
           <div className="bg-yellow-100 border border-yellow-300 p-4 rounded mb-4">
             <h3 className="font-bold text-lg mb-2 text-yellow-800">
