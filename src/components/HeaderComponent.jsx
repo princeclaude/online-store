@@ -102,6 +102,8 @@ const HeaderComponent = ({ cartCount = 0, setShowWishlist }) => {
     fetchGeoInfo();
   }, []);
 
+  const firstName = userProfile.name.split(" ");
+
   const handleCurrencyChange = (code, flag) => {
     setCurrency(code);
     setFlagCode(flag);
@@ -166,7 +168,7 @@ const HeaderComponent = ({ cartCount = 0, setShowWishlist }) => {
       <div className="flex items-center space-x-4 mt-4 md:mt-0">
         {user && userProfile?.name && (
           <p className="text-xs text-green-400 font-semibold">
-            Welcome, {userProfile.name}
+            Hi, {firstName[0]}
           </p>
         )}
 

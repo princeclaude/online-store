@@ -32,6 +32,7 @@ const SignupPage = () => {
       return;
     }
     const nameParts = name.trim().split(" ");
+    const firstName = nameParts[0]
     if (nameParts.length < 2) {
       toast.error("Please enter your full name (first and last name)");
       return;
@@ -66,6 +67,8 @@ const SignupPage = () => {
         createdAt: new Date(),
         emailVerified: false,
       });
+      toast.success(`Hi ${firstName} your signup was successful!`);
+      // setShowVerificationMessage(true);
 
       
       
