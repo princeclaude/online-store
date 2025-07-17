@@ -168,7 +168,7 @@ const HeaderComponent = ({ cartCount = 0, setShowWishlist }) => {
       <div className="flex items-center space-x-4 mt-4 md:mt-0">
         {user && userProfile?.name && (
           <p className="text-xs text-green-400 font-semibold">
-            Hi, {firstName[0]}
+            Hi, {userProfile.name?.split(" ")[0]}
           </p>
         )}
 
