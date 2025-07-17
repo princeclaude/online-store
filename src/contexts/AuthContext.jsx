@@ -24,7 +24,7 @@ export const AuthProvider = ({ children }) => {
       if (firebaseUser) {
         setUser(firebaseUser);
 
-        // 🔍 Fetch Firestore user data
+        
         const docRef = doc(db, "users", firebaseUser.uid);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
@@ -33,7 +33,7 @@ export const AuthProvider = ({ children }) => {
           setUserProfile(null);
         }
 
-        // 🎫 Save session token
+       
         localStorage.setItem("token", "loggedin");
       } else {
         setUser(null);
@@ -65,6 +65,7 @@ export const AuthProvider = ({ children }) => {
 
   const value = {
     user,
+    currentUser: user,
     userProfile,
     isAdmin,
     signup,

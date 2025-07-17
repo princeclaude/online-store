@@ -20,12 +20,14 @@ import AdminAllProducts from "./components/AdminAllProducts";
 import EditProductPage from "./components/EditProductPage";
 import { Toaster } from "react-hot-toast";
 
+// ✅ Protected Route wrappers
+import PrivateRoute from "./routes/PrivateRoute";
+import AdminRoute from "./routes/AdminRoute";
+
 function App() {
-  const { user, loading } = useAuth();
+  const { loading } = useAuth();
 
   if (loading) return <div>Loading...</div>;
-
-  const isAdmin = user?.email === "admin@classicroyal.com";
 
   return (
     <>
@@ -36,21 +38,60 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/product/:id" element={<ProductDetailPage />} />
-        <Route path="/bag" element={<BagScreen />} />
-        <Route path="/settings" element={<SettingsPage />} />
-        <Route path="/upload" element={<UploadProduct />} />
         <Route path="/section" element={<CategorySection />} />
         <Route path="/header" element={<HeaderComponent />} />
         <Route path="/signinmodal" element={<SignInModal />} />
         <Route path="/search" element={<SearchModal />} />
         <Route path="/flashsale" element={<FlashSalesBanner />} />
-        <Route path="/allproducts" element={<AdminAllProducts />} />
-        <Route path="/editproduct/:id" element={<EditProductPage />} />
         <Route path="/footer" element={<FooterComponent />} />
-        {isAdmin && <Route path="/save" element={<SavePixabayImage />} />}
+
+        {/* ✅ Protected Routes (for any signed-in user) */}
+        <Route
+          path="/bag"
+          element={
+            <PrivateRoute>
+              <BagScreen />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/settings"
+          element={
+            <PrivateRoute>
+              <SettingsPage />
+            </PrivateRoute>
+          }
+        />
+
+        {/* ✅ Admin-only Routes */}
+        
+        <Route
+          path="/save"
+          element={
+            <AdminRoute>
+              <SavePixabayImage />
+            </AdminRoute>
+          }
+        />
+        <Route
+          path="/allproducts"
+          element={
+            <AdminRoute>
+              <AdminAllProducts />
+            </AdminRoute>
+          }
+        />
+        <Route
+          path="/editproduct/:id"
+          element={
+            <AdminRoute>
+              <EditProductPage />
+            </AdminRoute>
+          }
+        />
       </Routes>
-      
     </>
   );
 }
+
 export default App;

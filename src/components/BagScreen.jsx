@@ -12,12 +12,20 @@ import { useAuth } from "../contexts/AuthContext";
 import { useBag } from "../contexts/BagContext";
 import { FaTrash, FaShareAlt, FaCreditCard } from "react-icons/fa";
 import { format } from "date-fns";
+import { replace, useNavigate } from "react-router-dom";
 
 const BagScreen = () => {
   const { user } = useAuth();
   const { fetchBagItems } = useBag();
   const [bagItems, setBagItems] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/home", { replace: true });
+    }
+  }, [user, navigate]);
+  
 
   const loadBagItems = async () => {
     if (!user) return;

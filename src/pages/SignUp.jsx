@@ -59,7 +59,7 @@ const SignupPage = () => {
       
     } catch (error) {
       console.error(error.message);
-      alert("Signup failed: " + error.message);
+      toast.error("Signup failed: " + error.message);
     }
   };
 
