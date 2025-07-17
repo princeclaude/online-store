@@ -31,6 +31,10 @@ const SignupPage = () => {
       toast.success("All fields must be filled!")
       return;
     }
+    if (phone.length !== 11) {
+      toast.error("Phone number not valid")
+      return;
+    }
       
 
     try {
