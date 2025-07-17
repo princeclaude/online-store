@@ -137,8 +137,10 @@ const UserOrdersModal = ({ onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm flex justify-center items-start pt-20 z-50 overflow-y-auto">
-      <div className="bg-white max-w-6xl w-full max-h-[90vh] overflow-x-auto rounded-lg shadow-lg p-6 relative">
+    <div className="fixed inset-0 bg-black bg-opacity-60 backdrop-blur-sm flex justify-center items-start pt-20 z-50 overflow-y-auto"
+      onClick={onClose}>
+      <div className="bg-white max-w-6xl w-full max-h-[90vh] overflow-x-auto rounded-lg shadow-lg p-6 relative"
+       onClick={ e => e.stopPropagation()}>
         <button
           onClick={onClose}
           className="absolute top-4 right-4 text-red-500 hover:text-red-700"
