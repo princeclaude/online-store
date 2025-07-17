@@ -31,8 +31,16 @@ const SignupPage = () => {
       toast.success("All fields must be filled!")
       return;
     }
-    if (phone.length !== 11) {
-      toast.error("Phone number not valid")
+    const nameParts = name.trim().split(" ");
+    if (nameParts.length < 2) {
+      toast.error("Please enter your full name (first and last name)");
+      return;
+    }
+
+    
+    const phoneRegex = /^\d{11}$/;
+    if (!phoneRegex.test(phone)) {
+      toast.error("Phone number must be 11 digits");
       return;
     }
       
