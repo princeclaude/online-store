@@ -102,7 +102,7 @@ const HeaderComponent = ({ cartCount = 0, setShowWishlist }) => {
     fetchGeoInfo();
   }, []);
 
-  const firstName = userProfile.name.split(" ");
+  
 
   const handleCurrencyChange = (code, flag) => {
     setCurrency(code);
