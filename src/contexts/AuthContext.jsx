@@ -9,6 +9,7 @@ import {
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { app, db } from "../firebase/firebaseConfig"; 
+import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext();
 
@@ -17,6 +18,22 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null); 
   const [userProfile, setUserProfile] = useState(null); 
   const [loading, setLoading] = useState(true);
+
+  function RestoreSession() {
+    const navigate = useNavigate();
+
+    useEffect(() => {
+      const lastPath = sessionStorage.getItem("lastPath");
+      const isReturning = sessionStorage.getItem("hasReturned");
+
+      if (lastPath && !isReturning) {
+        sessionStorage.setItem("hasReturned", "true");
+        navigate(lastPath);
+      }
+    }, []);
+
+    return null;
+  }
 
   
   useEffect(() => {
@@ -58,6 +75,8 @@ export const AuthProvider = ({ children }) => {
     await signOut(auth);
     setUser(null);
     setUserProfile(null);
+    sessionStorage.removeItem("lastPath");
+    sessionStorage.removeItem("hasReturned");
     localStorage.removeItem("token");
   };
 

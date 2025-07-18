@@ -18,6 +18,7 @@ import ProductDetailPage from "./components/ProductDetailPage";
 import FooterComponent from "./components/FooterComponent";
 import AdminAllProducts from "./components/AdminAllProducts";
 import EditProductPage from "./components/EditProductPage";
+import RestoreSession from "./components/RestoreSession";
 import { Toaster } from "react-hot-toast";
 
 // ✅ Protected Route wrappers
@@ -32,6 +33,7 @@ function App() {
   return (
     <>
       <Toaster position="top-center" reverseOrder={false} />
+      <RestoreSession/>
       <Routes>
         <Route path="/" element={<Navigate to="/home" replace />} />
         <Route path="/home" element={<Home />} />

@@ -3,6 +3,7 @@ import { FaTimes } from "react-icons/fa";
 import { useAuth } from "../contexts/AuthContext";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
+import toast from "react-hot-toast";
 
 const UserInfoModal = ({ onClose }) => {
   const { user, logout } = useAuth();
@@ -55,6 +56,7 @@ const UserInfoModal = ({ onClose }) => {
     try {
       await logout();
       setMessage("✅ You have been logged out.");
+      toast.success("Logged out!")
       setTimeout(() => {
         setMessage("");
         handleClose();
