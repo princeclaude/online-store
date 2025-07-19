@@ -1,14 +1,6 @@
-ClassicRoyal – Modern E-Commerce Platform
+ E-Commerce Platform.
+  User Features
 
-Welcome to ClassicRoyal, a powerful and scalable modern e-commerce platform built with **React, **Firebase, and **Uploadcare*. This app allows users to browse, search, and purchase items, while admins can upload products, manage orders, and track delivery — all from an elegant UI.
-
-Live Demo → [https://online-store-delta-beige.vercel.app](https://online-store-delta-beige.vercel.app)
-
-
-
-
-
- User Features
 - Sign Up / Sign In (Email & Password)
 - Add to Bag (Cart)
 -  Wishlist with modal prompts
@@ -25,6 +17,16 @@ Admin Features
 - Delete Orders after delivery
 -  Admin-only access to upload and product edit routes
 
+
+Welcome to ClassicRoyal, a powerful and scalable modern e-commerce platform built with **React, **Firebase, and **Uploadcare*. This app allows users to browse, search, and purchase items, while admins can upload products, manage orders, and track delivery — all from an elegant UI.
+
+Live Demo  [https://online-store-delta-beige.vercel.app](https://online-store-delta-beige.vercel.app)
+
+
+
+
+
+ 
 ---
 
 
