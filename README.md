@@ -1,12 +1,51 @@
-# React + Vite
+ClassicRoyal – Modern E-Commerce Platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Welcome to ClassicRoyal, a powerful and scalable modern e-commerce platform built with **React, **Firebase, and **Uploadcare*. This app allows users to browse, search, and purchase items, while admins can upload products, manage orders, and track delivery — all from an elegant UI.
 
-Currently, two official plugins are available:
+Live Demo → [https://online-store-delta-beige.vercel.app](https://online-store-delta-beige.vercel.app)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+
+ User Features
+- Sign Up / Sign In (Email & Password)
+- Add to Bag (Cart)
+-  Wishlist with modal prompts
+-  Real-time Search Modal
+- Track Orders with Delivery ETA
+- Session Persistence using sessionStorage
+-  Personalized Welcome Toasts
+
+
+Admin Features
+-  Product Upload (with dynamic image fetching via *Pixabay* and upload to *Uploadcare*)
+-  Firestore-based product metadata storage
+-  Order Management: Update Status, Set ETA, Verify Delivery Code
+- Delete Orders after delivery
+-  Admin-only access to upload and product edit routes
+
+---
+
+
+
+ Category        Stack                                     
+
+ *Frontend*     React + Vite + TailwindCSS                
+ *Auth*          Firebase Authentication                   
+ *Database*      Firebase Firestore                        
+ *Storage*       Uploadcare (for permanent image hosting)  
+ *Image Source*  Pixabay API (image search)                
+ *Hosting*       Vercel                                     
+ *State*        React Context API                         
+ *Utilities*     react-hot-toast, react-icons, axios       
+
+
+
+
+
+bash:
+git clone https://github.com/your-username/classicroyal.git
+cd classicroyal
+npm install
+npm run dev
