@@ -146,25 +146,23 @@ const SharedItemsModal = ({ onClose, fetchBagItems }) => {
                       ? item.timestamp.toDate().toLocaleString()
                       : ""}
                   </p>
-                </div>
-
-                {/* Action Icons */}
-                <div className="flex flex-col sm:flex-row gap-3 sm:gap-5 items-start sm:items-center">
-                  <FaCreditCard
-                    className="text-green-600 cursor-pointer hover:text-green-800"
-                    title="Purchase now"
-                    onClick={() => setSelectedItem(item)}
-                  />
-                  <FiShoppingBag
-                    className="text-blue-500 cursor-pointer hover:text-blue-800"
-                    title="Add to bag"
-                    onClick={() => handleAddToBag(item)}
-                  />
-                  <FaTrash
-                    className="text-red-500 cursor-pointer hover:text-red-700"
-                    title="Delete from your view"
-                    onClick={() => handleDelete(item)}
-                  />
+                  <div className="flex flex-col sm:flex-row gap-3 sm:gap-5 items-start sm:items-center">
+                    <FaCreditCard
+                      className="text-green-600 cursor-pointer hover:text-green-800"
+                      title="Purchase now"
+                      onClick={() => setSelectedItem(item)}
+                    />
+                    <FiShoppingBag
+                      className="text-blue-500 cursor-pointer hover:text-blue-800"
+                      title="Add to bag"
+                      onClick={() => handleAddToBag(item)}
+                    />
+                    <FaTrash
+                      className="text-red-500 cursor-pointer hover:text-red-700"
+                      title="Delete from your view"
+                      onClick={() => handleDelete(item)}
+                    />
+                  </div>
                 </div>
               </div>
             ))}
