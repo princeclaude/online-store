@@ -248,7 +248,7 @@ const ProductCard = ({ item, index, wishlist, setWishlist }) => {
 
       <div className="flex items-center justify-between mt-1">
         <p
-          className={`text-sm font-bold text-white
+          className={`text-sm font-bold ${item.status?.toLowerCase().trim() === "available" ? "text-green-700" : "text-red-500"}
             
           `}
         >
