@@ -149,7 +149,7 @@ const SharedItemsModal = ({ onClose, fetchBagItems }) => {
                 </div>
 
                 {/* Action Icons */}
-                <div className="flex gap-5">
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-5 items-start sm:items-center">
                   <FaCreditCard
                     className="text-green-600 cursor-pointer hover:text-green-800"
                     title="Purchase now"
